@@ -1,5 +1,6 @@
 import { RiStarSFill } from "react-icons/ri";
 import { RiStarSLine } from "react-icons/ri";
+import "./style.scss";
 
 export interface Props {
   rating: number;
@@ -20,7 +21,7 @@ export default function StarRating(props: Props) {
   }
 
   return (
-    <div>
+    <div className="movie-rate">
       {fullStars.map((index) => (
         <RiStarSFill key={index} />
       ))}

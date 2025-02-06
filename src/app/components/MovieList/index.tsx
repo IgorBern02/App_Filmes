@@ -1,13 +1,15 @@
 "use client";
 
-import { memo, useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import "./style.scss";
 import axios from "axios";
 import { Movie } from "../types/movie";
 import MovieCard from "../MovieCard/index";
+// import ReactLoading from "react-loading";
 
-const ModalMovieList = memo(() => {
+export default function MovieList() {
   const [movies, setMovies] = useState<Movie[]>([]);
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     getMovies();
@@ -24,23 +26,23 @@ const ModalMovieList = memo(() => {
     }).then((response) => {
       setMovies(response.data.results); // Armazena os filmes buscados no estado
     });
+
+    // setIsLoading(false);
   };
 
+  // if (isLoading) {
+  //   return (
+  //     <div className="loading-container">
+  //       <ReactLoading type="spin" color="#6046ff" height={"5%"} width={"5%"} />
+  //     </div>
+  //   );
+  // }
+
   return (
-    <ul>
+    <ul className="movie-list">
       {movies.map((movie) => (
         <MovieCard movie={movie} key={movie.id} />
       ))}
     </ul>
   );
-});
-
-const MovieList = () => {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ModalMovieList />
-    </Suspense>
-  );
-};
-
-export default memo(MovieList);
+}
